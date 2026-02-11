@@ -5,10 +5,30 @@ import type {
   TaxRates,
 } from './calculator.types'
 
-const calculateDiscount = (total: number, sortedDiscountRates: DiscountRate[]): number =>
-  0
+const calculateDiscount = (
+  total: number,
+  sortedDiscountRates: DiscountRate[],
+): number => {
+  const discountRate = sortedDiscountRates.find((rate) => total >= rate.value)
 
-const calculateTax = (total: number, region: string, rates: TaxRates): number => 0
+  if (!discountRate) {
+    return 0
+  }
+
+  return total * (discountRate.percentage / 100)
+}
+
+const calculateTax = (total: number, region: string, rates: TaxRates): number => {
+  const rate = rates[region]
+
+  if (!rate) {
+    return 0
+  }
+
+  return total * rate
+}
+
+const roundToCurrency = (amount: number) => Math.round(amount * 100) / 100
 
 export const calculate = (
   formData: CalculatorFormData,
@@ -19,14 +39,13 @@ export const calculate = (
   const discount = calculateDiscount(subTotal, sortedDiscountRates)
   const totalWithDiscount = subTotal - discount
   const tax = calculateTax(totalWithDiscount, formData.region, taxRates)
-  const totalWithTax = totalWithDiscount + tax
 
   return {
-    subTotal,
-    discount,
-    tax,
-    totalWithDiscount,
-    totalWithTax,
+    subTotal: roundToCurrency(subTotal),
+    discount: roundToCurrency(discount),
+    tax: roundToCurrency(tax),
+    totalWithDiscount: roundToCurrency(totalWithDiscount),
+    totalWithTax: roundToCurrency(totalWithDiscount + tax),
   }
 }
 
