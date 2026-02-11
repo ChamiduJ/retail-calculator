@@ -1,11 +1,8 @@
 import { useState, type FC, type SubmitEvent } from 'react'
-import s from './styles.module.scss'
 
-type CalculatorFormData = {
-  quantity: number
-  pricePerItem: number
-  region: string
-}
+import type { CalculatorFormData } from '../calculator.types'
+
+import s from './styles.module.scss'
 
 type CalculatorFormProps = {
   onSubmit: (data: CalculatorFormData) => void
