@@ -1,13 +1,8 @@
 import type { FC } from 'react'
-import s from './styles.module.scss'
 
-export type CalculatedPrices = {
-  subTotal: number
-  discount: number
-  tax: number
-  totalWithDiscount: number
-  totalWithTax: number
-}
+import type { CalculatedPrices } from '../calculator.types'
+
+import s from './styles.module.scss'
 
 type CalculatedPricesProps = {
   prices: CalculatedPrices | null
