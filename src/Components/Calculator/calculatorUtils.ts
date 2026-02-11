@@ -18,7 +18,15 @@ const calculateDiscount = (
   return total * (discountRate.percentage / 100)
 }
 
-const calculateTax = (total: number, region: string, rates: TaxRates): number => 0
+const calculateTax = (total: number, region: string, rates: TaxRates): number => {
+  const rate = rates[region]
+
+  if (!rate) {
+    return 0
+  }
+
+  return total * rate
+}
 
 export const calculate = (
   formData: CalculatorFormData,
