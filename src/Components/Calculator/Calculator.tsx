@@ -1,19 +1,27 @@
+import { useState } from 'react'
+
 import CalculatorForm from './CalculatorForm/CalculatorForm'
 import CalculatorPrices from './CalculatorPrices/CalculatorPrices'
 
-const mocklPrices = {
-  subTotal: 100,
-  discount: 0,
-  tax: 10,
-  totalWithDiscount: 100,
-  totalWithTax: 110,
-}
+import { calculate } from './calculatorUtils'
 
-const Calculator = () => (
-  <>
-    <CalculatorForm onSubmit={() => {}} />
-    <CalculatorPrices prices={mocklPrices} />
-  </>
-)
+import type { CalculatedPrices, CalculatorFormData } from './calculator.types'
+
+import { sortedDiscountRates, taxRates } from './rates'
+
+const Calculator = () => {
+  const [prices, setPrices] = useState<CalculatedPrices | null>(null)
+
+  const handleSubmit = (formData: CalculatorFormData) => {
+    setPrices(calculate(formData, sortedDiscountRates, taxRates))
+  }
+
+  return (
+    <>
+      <CalculatorForm onSubmit={handleSubmit} />
+      <CalculatorPrices prices={prices} />
+    </>
+  )
+}
 
 export default Calculator
