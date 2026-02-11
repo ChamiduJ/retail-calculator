@@ -5,8 +5,18 @@ import type {
   TaxRates,
 } from './calculator.types'
 
-const calculateDiscount = (total: number, sortedDiscountRates: DiscountRate[]): number =>
-  0
+const calculateDiscount = (
+  total: number,
+  sortedDiscountRates: DiscountRate[],
+): number => {
+  const discountRate = sortedDiscountRates.find((rate) => total >= rate.value)
+
+  if (!discountRate) {
+    return 0
+  }
+
+  return total * (discountRate.percentage / 100)
+}
 
 const calculateTax = (total: number, region: string, rates: TaxRates): number => 0
 
