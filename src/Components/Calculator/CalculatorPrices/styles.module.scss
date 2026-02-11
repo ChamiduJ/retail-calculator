@@ -1,0 +1,15 @@
+.CalculatorPrices {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  h2 {
+    text-align: center;
+    margin: 2rem 0 0;
+  }
+
+  > p {
+    display: flex;
+    justify-content: space-between;
+  }
+}
