@@ -11,3 +11,12 @@ export type CalculatedPrices = {
   totalWithDiscount: number
   totalWithTax: number
 }
+
+export type DiscountRate = {
+  value: number
+  percentage: number
+}
+
+export type TaxRates = {
+  [index: string]: number
+}
